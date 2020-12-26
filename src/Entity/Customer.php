@@ -33,7 +33,7 @@ class Customer
      * @ORM\Column(type="string", length=32, nullable=true)
      */
     private $phone;
-    
+
 
     public function __construct()
     {
