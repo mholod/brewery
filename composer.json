@@ -4,7 +4,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.3.11",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.11",
@@ -18,7 +18,10 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "liip/test-fixtures-bundle": "^1.11",
-        "symfony/maker-bundle": "^1.26"
+        "symfony/browser-kit": "5.2.*",
+        "symfony/css-selector": "5.2.*",
+        "symfony/maker-bundle": "^1.26",
+        "symfony/phpunit-bridge": "^5.2"
     },
     "config": {
         "optimize-autoloader": true,
