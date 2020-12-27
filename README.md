@@ -1,3 +1,29 @@
+##Routes
+
+    @Route(
+        "/blog/{category}/{page?}", 
+        name="blog", 
+        requirements={
+            "page"="\d+",
+            "category": "computers|devices"
+        },
+        defaults={"category": "computers"}
+    )
+
+##GET/POST data
+    
+    // GET data
+        $request->query->get('foo', 'default')
+
+    //POST data
+        $request->request->get('foo')
+        $request->files->get('foo')
+
+    //check if data is AJAX
+        $request->isXmlHttpRequest()
+
+
+
 ##Render controller
 
     {‌{render(controller('App\\Controller\\Controller::method', {'param': 5} ))}}
@@ -16,13 +42,9 @@
 ##Raw query:
 
     $conn = $entityManager->getConnection();
-    
     $sql = 'select * from user where user.id > :id';
-    
     $stmt = $con->prepare($sql);
-    
     $stmt->execute(['id' => 1]);
-    
     $stmt->fetchAll();
 
 
@@ -31,9 +53,7 @@
 
 
     public function index(User $user) {
-    
         return $user
-    
     }
     
     composer require sensio/framework-extra-bundle
@@ -41,21 +61,17 @@
 
 
 
-##Lifecycle callbacks
+##Lifecycle callbacks - automatic DB filed updates
 
-
-
+    // set this above repository class definition:
     Entity: @ORM\HasLifecycleCallbacks()
     
     
     
     @ORM\PrePersist
-    
     public function setCreatedAtValue()
-    
     {
-
-    $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTime();
 
 
 ##Refresh database:
@@ -73,24 +89,24 @@
 ##Eager loading query in repo:
 
     public function eagerLoad($id): User
-    
     {
-    
     return $this->createQueryBuilder('u')
-    
     ->innerJoin('u.videos', 'v')
-    
     ->addSelect('v')
-    
     ->andWhere('u.id = :id')
-    
     ->setParameter('id', $id)
-    
     ->getQuery()
-    
     ->getOneOrNullResult();
-    
     }
+
+##DB relationships
+
+    @ORM\ManyToOne(rtargetEntity="App\Entity\User", inversedBy="videos")
+
+    //inverse
+        @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="user"
+    
+        private $videos;
 
 
 ##Profiler
@@ -100,7 +116,7 @@
     composer require Symfony/debug-bundle
 
 
-##Required acts as constructor
+##Traits - Required annotation acts as constructor
 
 
     <?php
@@ -117,15 +133,10 @@
     }
     
     ##Service alias
-    
     services.yaml
-    
     app.myservices:
-    
       class: App\Services\Myservice
-    
       public: true
-    
     App\Services\MyService: '@app.myservice'
     
     
@@ -219,7 +230,7 @@
     ./bin/phpunit --coverage-text
 
 
-##Alternative with mocking:
+##Testing alternative with mocking:
 
     use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
     use App\Twig\AppExtension;
