@@ -26,7 +26,7 @@ class Order
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Customer::class)
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
@@ -58,12 +58,12 @@ class Order
         return $this;
     }
 
-    public function getCustomer(): ?customer
+    public function getCustomer(): ?Customer
     {
         return $this->customer;
     }
 
-    public function setCustomer(?customer $customer): self
+    public function setCustomer(?Customer $customer): self
     {
         $this->customer = $customer;
 
